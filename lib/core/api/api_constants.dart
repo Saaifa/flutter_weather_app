@@ -6,7 +6,7 @@ class ApiConstants{
 
 
   static const String GOOGLE_API_KEY = 'YOUR_API_KEY';
-  static const String WEATHER_API_KEY = '86c4884a76c4e8202ebc53f968594588';
+  static const String WEATHER_API_KEY = 'YOUR_API_KEY';
 
 
   static const String PLACE_AUTOCOMPLETE_FIELD = 'address_component';

@@ -20,6 +20,7 @@ class LocationRepositoryImpl implements LocationRepository{
 
   @override
   Future placeAutoComplete(String location, String googleApiKey, String fields) async{
+    print("response of LocationRepositoryImpl: ");
     final response = await _apiService.placeAutoComplete(location, googleApiKey, fields);
     return response;
   }

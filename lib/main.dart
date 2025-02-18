@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
               WeatherCubit(repository: WeatherRepository(WeatherApiService())),
         ),
         BlocProvider(
-          create: (context) => LocationCubit(searchLocationUseCase, placeDetailUseCase),
+          create: (context) => LocationCubit(placeDetailUseCase),
         ),
       ],
       child: MaterialApp(

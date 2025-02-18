@@ -1,22 +1,32 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_weather_app/core/api/api_constants.dart';
+import 'package:flutter_weather_app/data/repositories/location_repository.dart';
 import 'package:flutter_weather_app/domain/usecase/place_detail_use_case.dart';
 import 'package:flutter_weather_app/domain/usecase/search_location_use_case.dart';
 import 'package:meta/meta.dart';
+
+import '../../../data/source/google_place_api_servce.dart';
+
+// import '../../../data/source/google_place_api_service.dart';
 
 part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
 
-  final SearchLocationUseCase searchLocation;
   final PlaceDetailUseCase placeDetail;
-  LocationCubit(this.searchLocation, this.placeDetail) : super(LocationInitial());
+  LocationCubit(this.placeDetail) : super(LocationInitial());
 
   Future<dynamic> placeAutoComplete(String location) async{
+    // final SearchLocationUseCase searchLocation = SearchLocationUseCase();
+    final GooglePlaceApiService _GooglePlaceApiService = GooglePlaceApiService();
+    // final LocationRepositoryImpl _repository = LocationRepositoryImpl(GooglePlaceApiService(Dio()));
     print("locationCubit: $location");
     emit(LocationLoading());
     try{
-      final response = await searchLocation(location, ApiConstants.GOOGLE_API_KEY, ApiConstants.PLACE_AUTOCOMPLETE_FIELD);
+      final response = await _GooglePlaceApiService.searchPlace(location);
+
+      // final response = await searchLocation(location, ApiConstants.GOOGLE_API_KEY, ApiConstants.PLACE_AUTOCOMPLETE_FIELD);
       // Map<String, dynamic> jsonMap = jsonDecode(response.toString());
       // Logger.getInstance().logInfo("LocationSuccess Cubit", "${response["predictions"]}");
       List<dynamic> predictions = response["predictions"];
