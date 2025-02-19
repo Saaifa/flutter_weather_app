@@ -18,17 +18,12 @@ class LocationCubit extends Cubit<LocationState> {
   LocationCubit(this.placeDetail) : super(LocationInitial());
 
   Future<dynamic> placeAutoComplete(String location) async{
-    // final SearchLocationUseCase searchLocation = SearchLocationUseCase();
     final GooglePlaceApiService _GooglePlaceApiService = GooglePlaceApiService();
-    // final LocationRepositoryImpl _repository = LocationRepositoryImpl(GooglePlaceApiService(Dio()));
     print("locationCubit: $location");
     emit(LocationLoading());
     try{
       final response = await _GooglePlaceApiService.searchPlace(location);
 
-      // final response = await searchLocation(location, ApiConstants.GOOGLE_API_KEY, ApiConstants.PLACE_AUTOCOMPLETE_FIELD);
-      // Map<String, dynamic> jsonMap = jsonDecode(response.toString());
-      // Logger.getInstance().logInfo("LocationSuccess Cubit", "${response["predictions"]}");
       List<dynamic> predictions = response["predictions"];
       print("response of sdknknskdjfnosdf: $predictions");
       // if(predictions.isNotEmpty) {
@@ -37,13 +32,8 @@ class LocationCubit extends Cubit<LocationState> {
       //   // Logger.getInstance().logInfo("LocationSuccess Cubit", "${response.message}");
       //   emit(LocationError("No data available"));
       // }
-      // Logger.getInstance().logInfo("LocationSuccess Cubit", "$response");
-      // if(response == null){
-      //   emit(LocationError("NO location available"));
-      // }
     }
     catch(e){
-      // Logger.getInstance().logInfo("LocationSuccess Cubit", "$e");
       emit(LocationError("Location Error : $e"));
     }
   }
